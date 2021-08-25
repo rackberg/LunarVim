@@ -5,7 +5,8 @@ return {
   { "tamago324/nlsp-settings.nvim" },
   { "jose-elias-alvarez/null-ls.nvim" },
   {
-    "kabouzeid/nvim-lspinstall",
+--    "kabouzeid/nvim-lspinstall",
+    "rackberg/nvim-lspinstall",
     event = "VimEnter",
     config = function()
       local lspinstall = require "lspinstall"

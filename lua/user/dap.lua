@@ -1,12 +1,10 @@
--- if lvim.lang.dart.active then
-  require("lsp").setup "dart"
--- end
+local M = {}
 
-if lvim.builtin.dap.active then
-  local dap_install = require "dap-install"
-  dap_install.config("dart_dbg", {})
-
-  local dap = require "dap"
+M.config = function ()
+  local status_ok, dap = pcall(require, "dap")
+  if not status_ok then
+    return
+  end
 
   dap.configurations.dart = {
     {
@@ -19,4 +17,16 @@ if lvim.builtin.dap.active then
       cwd = "${workspaceFolder}"
     }
   }
+
+  dap.configurations.java = {
+    {
+      type = "java",
+      request = "launch",
+      name = "Launch current file",
+      javaExec = "java",
+      mainClass = "${file}",
+    }
+  }
 end
+
+return M
