@@ -9,8 +9,22 @@ M.config = function ()
   dap.configurations.dart = {
     {
       type = "dart",
-      request = "launch",
-      name = "Launch flutter",
+      --request = "launch",
+      request = 'attach',
+      --name = "Launch flutter",
+      name = "Attach to running dart process",
+      host = function ()
+        local value = vim.fn.input("Host [127.0.0.1]: ")
+        if value ~= "" then
+          return value  
+        end
+        return "127.0.0.1"
+      end,
+      port = function ()
+        local val = tonumber(vim.fn.input("Port: "))
+        assert(val, "Please provide a port number")
+        return val
+      end,
       dartSdkPath = "${workspaceFolder}/.fvm/flutter_sdk/bin/cache/dart-sdk/",
       flutterSdkPath = "${workspaceFolder}/.fvm/flutter_sdk/",
       program = "${workspaceFolder}/lib/main.dart",
